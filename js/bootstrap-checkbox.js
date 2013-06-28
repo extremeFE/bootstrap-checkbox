@@ -9,6 +9,7 @@
 
   var replaceCheckboxElement = function(element, checkbox) {
     var value = element.val(),
+        id = element.attr('id'),
         className = element.attr('class'),
         style = element.attr('style'),
         checked = !!element[0].checked,
@@ -16,6 +17,7 @@
 
     element.replaceWith(welNew);
 
+    if (id) { welNew.attr('id', id) }
     if (className) { welNew.attr('class', className) }
     welNew.addClass('bootstrap-checkbox');
     if (style) { welNew.attr('style', style); }
@@ -50,7 +52,7 @@
       }
 
       element.trigger({
-        type: 'check',
+        type: 'change',
         value: checkbox.value,
         checked: checked,
         element: element
@@ -65,7 +67,7 @@
 
   $.fn.extend({
     checkbox : function(option) {
-      var result = $(this.map(function () {
+      var aReplace = $(this.map(function () {
         var $this = $(this),
             data = $this.data('checkbox');
 
@@ -76,11 +78,11 @@
 
         return data.element[0];
       }));
-      result.selector = this.selector;
-      return result;
+      aReplace.selector = this.selector;
+      return aReplace;
     },
 
-    checkboxVal : function(value) {
+    cbxVal : function(value) {
       var $this = $(this[0]);
       var data = $this.data('checkbox');
 
@@ -95,9 +97,10 @@
       }
     },
 
-    checked : function(checked) {
+    cbxChecked : function(checked) {
       var $this = $(this[0]);
       var data = $this.data('checkbox');
+
       if (!data) {
         return;
       }

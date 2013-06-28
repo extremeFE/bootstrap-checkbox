@@ -2,7 +2,7 @@
 <html lang="en-US">
 <head>
   <meta charset="UTF-8" />
-  <title>Three status checkbox for Twitter Bootstrap</title>
+  <title>Three state checkbox for Twitter Bootstrap</title>
   <link rel="stylesheet" type="text/css" media="all" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" />
   <link rel="stylesheet" type="text/css" media="all" href="css/bootstrap-checkbox.css" />
 
@@ -11,19 +11,76 @@
   <script type="text/javascript" src="js/bootstrap-checkbox.js" charset="utf-8"></script>
 </head>
 <body>
-<input class="checkbox1" name="checkbox1" type="checkbox" value="1" />
-<input class="checkbox2" name="checkbox1" type="checkbox" value="2" checked/>
-<input class="checkbox2" name="checkbox1" type="checkbox" value="3" />
+<h4>
+  Basic checkbox
+</h4>
+<input id="checkbox1" type="checkbox" value="1">
 <script>
-  $('.checkbox1').checkbox();
-  $('.checkbox2').checkbox().on('check', function(e){
-    console.log(e.value, e.checked);
-  });
+  $('#checkbox1').checkbox();
+</script>
 
-  $('.checkbox2').checkboxVal(5);
-  console.log($('.checkbox2').checkboxVal())
-  $('.checkbox2').checked(null);
-  console.log($('.checkbox2').checked())
+<h4>
+  Three state checkbox
+</h4>
+<input id="checkbox2" type="checkbox" value="1">
+<script>
+  $('#checkbox2').checkbox().cbxChecked(null);
+</script>
+
+<h4>
+  change event
+</h4>
+<input id="checkvalue3" type="text" /><br/>
+<input id="checkbox3-1" class="checkbox3" type="checkbox" value="Apple"> Apple<br/>
+<input id="checkbox3-2" class="checkbox3" type="checkbox" value="Orange"> Orange<br/>
+<input id="checkbox3-3" class="checkbox3" type="checkbox" value="Google"> Google<br/>
+<script>
+  $('.checkbox3').checkbox().on('change', function(e) {
+    var value = $('#checkvalue3').val();
+    if (e.checked) {
+      value = $.trim(value + ' ' + e.value);
+    } else {
+      value = $.trim(value.replace(e.value, '').replace('  ', ' '));
+    }
+    $('#checkvalue3').val(value);
+  });
+</script>
+<h4>
+  change checkbox value
+</h4>
+<input id="checkbox4" type="checkbox" value="bootstrap is" checked/> bootstrap<br/>
+before : <span id="checkvalue4-1"></span><br/>
+after : <span id="checkvalue4-2"></span><br/>
+<script>
+  var welCheckbox4 = $('#checkbox4').checkbox();
+  $('#checkvalue4-1').html(welCheckbox4.cbxVal());
+  welCheckbox4.cbxVal('dependent on jQuery')
+  $('#checkvalue4-2').html(welCheckbox4.cbxVal());
+</script>
+<h4>
+  change checkbox check state
+</h4>
+<input id="checkbox5-1" type="checkbox" value="checked"/> : <span id="checkvalue5-1"></span><br/>
+<input id="checkbox5-2" type="checkbox" value="unchecked"/> : <span id="checkvalue5-2"></span><br/>
+<input id="checkbox5-3" type="checkbox" value="ambiguous"/> : <span id="checkvalue5-3"></span><br/>
+<script>
+  var welCheckbox51 = $('#checkbox5-1').checkbox();
+  welCheckbox51.cbxChecked(true);
+  if (welCheckbox51.cbxChecked() === true) {
+    $('#checkvalue5-1').html(welCheckbox51.cbxVal());
+  }
+
+  var welCheckbox52 = $('#checkbox5-2').checkbox();
+  welCheckbox52.cbxChecked(false);
+  if (welCheckbox52.cbxChecked() === false) {
+    $('#checkvalue5-2').html(welCheckbox52.cbxVal());
+  }
+
+  var welCheckbox53 = $('#checkbox5-3').checkbox();
+  welCheckbox53.cbxChecked(null);
+  if (welCheckbox53.cbxChecked() === null) {
+    $('#checkvalue5-3').html(welCheckbox53.cbxVal());
+  }
 </script>
 </body>
 </html>
