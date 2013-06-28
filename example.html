@@ -16,7 +16,14 @@
 <input class="checkbox2" name="checkbox1" type="checkbox" value="3" />
 <script>
   $('.checkbox1').checkbox();
-  $('.checkbox2').checkbox();
+  $('.checkbox2').checkbox().on('check', function(e){
+    console.log(e.value, e.checked);
+  });
+
+  $('.checkbox2').checkboxVal(5);
+  console.log($('.checkbox2').checkboxVal())
+  $('.checkbox2').checked(false);
+  console.log($('.checkbox2').checked())
 </script>
 </body>
 </html>
