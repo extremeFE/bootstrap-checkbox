@@ -28,6 +28,21 @@
     checkbox.element = welNew;
   };
 
+  var changeCheckView = function(element, checked) {
+    element.removeClass('ambiguous');
+    element.removeClass('checked');
+
+    if (checked === null) {
+      element.addClass('ambiguous');
+      element.html('<i class="icon-stop"></i>');
+    } else if (checked) {
+      element.addClass('checked');
+      element.html('<i class="icon-ok"></i>');
+    } else {
+      element.html('');
+    }
+  };
+
   var attachEvent = function(checkbox) {
     var element = checkbox.element;
     element.on('click', function(e) {
@@ -41,15 +56,7 @@
       }
 
       checkbox.checked = checked;
-
-      element.removeClass('ambiguous');
-      element.removeClass('checked');
-
-      if (checked === null) {
-        element.addClass('ambiguous')
-      } else if (checked) {
-        element.addClass('checked');
-      }
+      changeCheckView(element, checked);
 
       element.trigger({
         type: 'change',
@@ -107,16 +114,8 @@
       if ($.type(checked) === "undefined") {
         return data.checked;
       } else {
-        data.ambiguous = false;
-        $this.removeClass('ambiguous');
-        $this.removeClass('checked');
-
-        if (checked === null) {
-          data.ambiguous = true;
-          $this.addClass('ambiguous')
-        } else if (checked) {
-          $this.addClass('checked');
-        }
+        data.ambiguous = checked === null;
+        changeCheckView($this, checked);
 
         data.checked = checked;
         $this.data('checkbox', data);
