@@ -29,13 +29,24 @@
   var attachEvent = function(checkbox) {
     var element = checkbox.element;
     element.on('click', function(e) {
-      var checked = !checkbox.checked;
+      var checked;
+      if (checkbox.checked) {
+        checked = false;
+      } else if (checkbox.checked === false && checkbox.ambiguous === true){
+        checked = null;
+      } else {
+        checked = true;
+      }
+
       checkbox.checked = checked;
 
-      if (checked) {
+      element.removeClass('ambiguous');
+      element.removeClass('checked');
+
+      if (checked === null) {
+        element.addClass('ambiguous')
+      } else if (checked) {
         element.addClass('checked');
-      } else {
-        element.removeClass('checked');
       }
 
       element.trigger({
@@ -49,7 +60,6 @@
 
   var Checkbox = function(element) {
     replaceCheckboxElement(element, this);
-
     attachEvent(this);
   };
 
@@ -63,8 +73,7 @@
           data = new Checkbox($this);
           data.element.data('checkbox', data);
         }
-        if (typeof option == 'string') data[option]()
-//        data.ambiguous = !!(options && options.ambiguous);
+
         return data.element[0];
       }));
       result.selector = this.selector;
@@ -95,11 +104,17 @@
       if ($.type(checked) === "undefined") {
         return data.checked;
       } else {
-        if (checked ) {
+        data.ambiguous = false;
+        $this.removeClass('ambiguous');
+        $this.removeClass('checked');
+
+        if (checked === null) {
+          data.ambiguous = true;
+          $this.addClass('ambiguous')
+        } else if (checked) {
           $this.addClass('checked');
-        } else {
-          $this.removeClass('checked');
         }
+
         data.checked = checked;
         $this.data('checkbox', data);
       }
