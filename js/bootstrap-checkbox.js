@@ -73,7 +73,7 @@
   };
 
   $.fn.extend({
-    checkbox : function(option) {
+    checkbox : function(options) {
       var aReplace = $(this.map(function () {
         var $this = $(this),
             data = $this.data('checkbox');
@@ -85,7 +85,24 @@
 
         return data.element[0];
       }));
+
       aReplace.selector = this.selector;
+
+      if (!options) {
+        return aReplace;
+      }
+
+      var $head = $(aReplace[0]);
+      var data = $head.data('checkbox');
+      if ($.type(options.value) !== 'undefined') {
+        data.value = options.value;
+      }
+
+      if ($.type(options.checked) !== 'undefined') {
+        data.ambiguous = options.checked === null;
+        changeCheckView($head, options.checked);
+      }
+      $head.data('checkbox', data);
       return aReplace;
     },
 
