@@ -36,18 +36,18 @@ $('#checkbox2').checkbox().chbxChecked(null);
 ```
 ```javascript
 $('.checkbox3').checkbox().on('check', function(e) {
-var value = $('#checkvalue3').val();
-if (e.checked) {
-  value = $.trim(value + ' ' + e.value);
-} else {
-  value = $.trim(value.replace(e.value, '').replace('  ', ' '));
-}
-$('#checkvalue3').val(value);
+  var value = $('#checkvalue3').val();
+  if (e.checked) {
+    value = $.trim(value + ' ' + e.value);
+  } else {
+    value = $.trim(value.replace(e.value, '').replace('  ', ' '));
+  }
+  $('#checkvalue3').val(value);
 });
 ```
 ***
 
-#### change checkbox value
+#### Change checkbox value
 ```html
 <input id="checkbox4" type="checkbox" value="bootstrap is" checked/> bootstrap<br/>
 before : <span id="checkvalue4-1"></span><br/>
@@ -61,7 +61,7 @@ $('#checkvalue4-2').html(welCheckbox4.chbxVal());
 ```
 ***
 
-#### change checkbox check state
+#### Change checkbox check state
 ```html
 <input id="checkbox5-1" type="checkbox" value="checked"/> : <span id="checkvalue5-1"></span><br/>
 <input id="checkbox5-2" type="checkbox" value="unchecked"/> : <span id="checkvalue5-2"></span><br/>
@@ -71,19 +71,19 @@ $('#checkvalue4-2').html(welCheckbox4.chbxVal());
 var welCheckbox51 = $('#checkbox5-1').checkbox();
 welCheckbox51.chbxChecked(true);
 if (welCheckbox51.chbxChecked() === true) {
-$('#checkvalue5-1').html(welCheckbox51.chbxVal());
+  $('#checkvalue5-1').html(welCheckbox51.chbxVal());
 }
 
 var welCheckbox52 = $('#checkbox5-2').checkbox();
 welCheckbox52.chbxChecked(false);
 if (welCheckbox52.chbxChecked() === false) {
-$('#checkvalue5-2').html(welCheckbox52.chbxVal());
+  $('#checkvalue5-2').html(welCheckbox52.chbxVal());
 }
 
 var welCheckbox53 = $('#checkbox5-3').checkbox();
 welCheckbox53.chbxChecked(null);
 if (welCheckbox53.chbxChecked() === null) {
-$('#checkvalue5-3').html(welCheckbox53.chbxVal());
+  $('#checkvalue5-3').html(welCheckbox53.chbxVal());
 }
 ```
 
