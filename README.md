@@ -32,7 +32,7 @@ $('#checkbox2').checkbox().chbxChecked(null);
 <input id="checkvalue3" type="text" /><br/>
 <input id="checkbox3-1" class="checkbox3" type="checkbox" value="Apple"> Apple<br/>
 <input id="checkbox3-2" class="checkbox3" type="checkbox" value="Orange"> Orange<br/>
-<input id="checkbox3-3" class="checkbox3" type="checkbox" value="Google"> Google<br/>
+<input id="checkbox3-3" class="checkbox3" type="checkbox" value="Google"> Google
 ```
 ```javascript
 $('.checkbox3').checkbox().on('check', function(e) {
@@ -49,9 +49,9 @@ $('.checkbox3').checkbox().on('check', function(e) {
 
 #### Change checkbox value
 ```html
-<input id="checkbox4" type="checkbox" value="bootstrap is" checked/> bootstrap<br/>
+<input id="checkbox4" type="checkbox" value="Bootstrap is" checked/> bootstrap<br/>
 before : <span id="checkvalue4-1"></span><br/>
-after : <span id="checkvalue4-2"></span><br/>
+after : <span id="checkvalue4-2"></span>
 ```
 ```javascript
 var welCheckbox4 = $('#checkbox4').checkbox();
@@ -65,7 +65,7 @@ $('#checkvalue4-2').html(welCheckbox4.chbxVal());
 ```html
 <input id="checkbox5-1" type="checkbox" value="checked"/> : <span id="checkvalue5-1"></span><br/>
 <input id="checkbox5-2" type="checkbox" value="unchecked"/> : <span id="checkvalue5-2"></span><br/>
-<input id="checkbox5-3" type="checkbox" value="ambiguous"/> : <span id="checkvalue5-3"></span><br/>
+<input id="checkbox5-3" type="checkbox" value="ambiguous"/> : <span id="checkvalue5-3"></span>
 ```
 ```javascript
 var welCheckbox51 = $('#checkbox5-1').checkbox();
