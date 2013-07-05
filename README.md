@@ -1,1 +1,1 @@
-#bootstrap-checkbox test
+#bootstrap-checkbox
