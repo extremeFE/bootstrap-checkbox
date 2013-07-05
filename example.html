@@ -24,18 +24,18 @@
 </h4>
 <input id="checkbox2" type="checkbox" value="1">
 <script>
-  $('#checkbox2').checkbox().cbxChecked(null);
+  $('#checkbox2').checkbox().chbxChecked(null);
 </script>
 
 <h4>
-  change event
+  check event
 </h4>
 <input id="checkvalue3" type="text" /><br/>
 <input id="checkbox3-1" class="checkbox3" type="checkbox" value="Apple"> Apple<br/>
 <input id="checkbox3-2" class="checkbox3" type="checkbox" value="Orange"> Orange<br/>
 <input id="checkbox3-3" class="checkbox3" type="checkbox" value="Google"> Google<br/>
 <script>
-  $('.checkbox3').checkbox().on('change', function(e) {
+  $('.checkbox3').checkbox().on('check', function(e) {
     var value = $('#checkvalue3').val();
     if (e.checked) {
       value = $.trim(value + ' ' + e.value);
@@ -53,9 +53,9 @@ before : <span id="checkvalue4-1"></span><br/>
 after : <span id="checkvalue4-2"></span><br/>
 <script>
   var welCheckbox4 = $('#checkbox4').checkbox();
-  $('#checkvalue4-1').html(welCheckbox4.cbxVal());
-  welCheckbox4.cbxVal('dependent on jQuery')
-  $('#checkvalue4-2').html(welCheckbox4.cbxVal());
+  $('#checkvalue4-1').html(welCheckbox4.chbxVal());
+  welCheckbox4.chbxVal('dependent on jQuery')
+  $('#checkvalue4-2').html(welCheckbox4.chbxVal());
 </script>
 <h4>
   change checkbox check state
@@ -65,22 +65,23 @@ after : <span id="checkvalue4-2"></span><br/>
 <input id="checkbox5-3" type="checkbox" value="ambiguous"/> : <span id="checkvalue5-3"></span><br/>
 <script>
   var welCheckbox51 = $('#checkbox5-1').checkbox();
-  welCheckbox51.cbxChecked(true);
-  if (welCheckbox51.cbxChecked() === true) {
-    $('#checkvalue5-1').html(welCheckbox51.cbxVal());
+  welCheckbox51.chbxChecked(true);
+  if (welCheckbox51.chbxChecked() === true) {
+    $('#checkvalue5-1').html(welCheckbox51.chbxVal());
   }
 
   var welCheckbox52 = $('#checkbox5-2').checkbox();
-  welCheckbox52.cbxChecked(false);
-  if (welCheckbox52.cbxChecked() === false) {
-    $('#checkvalue5-2').html(welCheckbox52.cbxVal());
+  welCheckbox52.chbxChecked(false);
+  if (welCheckbox52.chbxChecked() === false) {
+    $('#checkvalue5-2').html(welCheckbox52.chbxVal());
   }
 
   var welCheckbox53 = $('#checkbox5-3').checkbox();
-  welCheckbox53.cbxChecked(null);
-  if (welCheckbox53.cbxChecked() === null) {
-    $('#checkvalue5-3').html(welCheckbox53.cbxVal());
+  welCheckbox53.chbxChecked(null);
+  if (welCheckbox53.chbxChecked() === null) {
+    $('#checkvalue5-3').html(welCheckbox53.chbxVal());
   }
+
 </script>
 </body>
 </html>

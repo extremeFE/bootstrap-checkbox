@@ -59,7 +59,7 @@
       changeCheckView(element, checked);
 
       element.trigger({
-        type: 'change',
+        type: 'check',
         value: checkbox.value,
         checked: checked,
         element: element
@@ -73,8 +73,8 @@
   };
 
   $.fn.extend({
-    checkbox : function(options) {
-      var aReplace = $(this.map(function () {
+    checkbox : function() {
+      var aReplaced = $(this.map(function () {
         var $this = $(this),
             data = $this.data('checkbox');
 
@@ -86,27 +86,11 @@
         return data.element[0];
       }));
 
-      aReplace.selector = this.selector;
-
-      if (!options) {
-        return aReplace;
-      }
-
-      var $head = $(aReplace[0]);
-      var data = $head.data('checkbox');
-      if ($.type(options.value) !== 'undefined') {
-        data.value = options.value;
-      }
-
-      if ($.type(options.checked) !== 'undefined') {
-        data.ambiguous = options.checked === null;
-        changeCheckView($head, options.checked);
-      }
-      $head.data('checkbox', data);
-      return aReplace;
+      aReplaced.selector = this.selector;
+      return aReplaced;
     },
 
-    cbxVal : function(value) {
+    chbxVal : function(value) {
       var $this = $(this[0]);
       var data = $this.data('checkbox');
 
@@ -121,7 +105,7 @@
       }
     },
 
-    cbxChecked : function(checked) {
+    chbxChecked : function(checked) {
       var $this = $(this[0]);
       var data = $this.data('checkbox');
 
