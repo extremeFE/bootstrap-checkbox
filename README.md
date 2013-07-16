@@ -39,7 +39,7 @@ var welChild = $('.checkbox-child').checkbox();
 var welParent = $('#checkbox-parent').checkbox();
 
 // check event by parent checkbox
-welParent.checkbox().on('check', function(e){
+welParent.on('check', function(e){
 // remove ambiguous;
 welParent.chbxChecked(e.checked);
 welChild.each(function(i, element) {
