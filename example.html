@@ -38,7 +38,7 @@
   var welChild = $('.checkbox-child').checkbox();
   var welParent = $('#checkbox-parent').checkbox();
 
-  // check event by parent checkbox
+  // check event on parent checkbox
   welParent.on('check', function(e){
     // remove ambiguous;
     welParent.chbxChecked(e.checked);
@@ -47,7 +47,7 @@
     });
   });
 
-  // check event by children checkbox
+  // check event on children checkbox
   welChild.on('check', function(e) {
     var bAnd = true, bOr = false;
     welChild.each(function(i, element){
