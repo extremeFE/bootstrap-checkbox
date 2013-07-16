@@ -7,7 +7,7 @@
 (function($) {
   "use strict";
 
-  var replaceCheckboxElement = function(element, checkbox) {
+  var replaceCheckboxElement = function(checkbox, element) {
     var value = element.val(),
         id = element.attr('id'),
         className = element.attr('class'),
@@ -43,8 +43,7 @@
     }
   };
 
-  var attachEvent = function(checkbox) {
-    var element = checkbox.element;
+  var attachEvent = function(checkbox, element) {
     element.on('click', function(e) {
       var checked;
       if (checkbox.checked) {
@@ -56,30 +55,33 @@
       }
 
       checkbox.checked = checked;
-      changeCheckView(element, checked);
+      changeCheckView(checkbox.element, checked);
 
-      element.trigger({
+      checkbox.element.trigger({
         type: 'check',
         value: checkbox.value,
         checked: checked,
-        element: element
+        element: checkbox.element
       });
     });
   };
 
-  var Checkbox = function(element) {
-    replaceCheckboxElement(element, this);
-    attachEvent(this);
+  var Checkbox = function(element, options) {
+    replaceCheckboxElement(this, element);
+    attachEvent(this, this.element);
+    if (options && options.label) {
+      attachEvent(this, $(options.label));
+    }
   };
 
   $.fn.extend({
-    checkbox : function() {
+    checkbox : function(options) {
       var aReplaced = $(this.map(function () {
         var $this = $(this),
             data = $this.data('checkbox');
 
         if (!data) {
-          data = new Checkbox($this);
+          data = new Checkbox($this, options);
           data.element.data('checkbox', data);
         }
 
