@@ -78,14 +78,14 @@
     checkbox : function(options) {
       var aReplaced = $(this.map(function () {
         var $this = $(this),
-            data = $this.data('checkbox');
+            checkbox = $this.data('checkbox');
 
-        if (!data) {
-          data = new Checkbox($this, options);
-          data.element.data('checkbox', data);
+        if (!checkbox) {
+          checkbox = new Checkbox($this, options);
+          checkbox.element.data('checkbox', checkbox);
         }
 
-        return data.element[0];
+        return checkbox.element[0];
       }));
 
       aReplaced.selector = this.selector;
@@ -94,34 +94,34 @@
 
     chbxVal : function(value) {
       var $this = $(this[0]);
-      var data = $this.data('checkbox');
+      var checkbox = $this.data('checkbox');
 
-      if (!data) {
+      if (!checkbox) {
         return;
       }
       if ($.type(value) === "undefined") {
-        return data.value;
+        return checkbox.value;
       } else {
-        data.value = value;
-        $this.data('checkbox', data);
+        checkbox.value = value;
+        $this.data('checkbox', checkbox);
       }
     },
 
     chbxChecked : function(checked) {
       var $this = $(this[0]);
-      var data = $this.data('checkbox');
+      var checkbox = $this.data('checkbox');
 
-      if (!data) {
+      if (!checkbox) {
         return;
       }
       if ($.type(checked) === "undefined") {
-        return data.checked;
+        return checkbox.checked;
       } else {
-        data.ambiguous = checked === null;
+        checkbox.ambiguous = checked === null;
         changeCheckView($this, checked);
 
-        data.checked = checked;
-        $this.data('checkbox', data);
+        checkbox.checked = checked;
+        $this.data('checkbox', checkbox);
       }
     }
   });

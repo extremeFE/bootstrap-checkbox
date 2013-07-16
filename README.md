@@ -29,61 +29,79 @@ $('#checkbox2').checkbox().chbxChecked(null);
 
 #### check event
 ```html
-<input id="checkvalue3" type="text" /><br/>
-<input id="checkbox3-1" class="checkbox3" type="checkbox" value="Apple"> Apple<br/>
-<input id="checkbox3-2" class="checkbox3" type="checkbox" value="Orange"> Orange<br/>
-<input id="checkbox3-3" class="checkbox3" type="checkbox" value="Google"> Google
+<input id="checkbox-parent" type="checkbox" value="state"> parent<br/>
+&nbsp; <input class="checkbox-child" type="checkbox" value="child1"> child1<br/>
+&nbsp; <input class="checkbox-child" type="checkbox" value="child2"> child2<br/>
+&nbsp; <input class="checkbox-child" type="checkbox" value="child3"> child3
 ```
 ```javascript
-$('.checkbox3').checkbox().on('check', function(e) {
-  var value = $('#checkvalue3').val();
-  if (e.checked) {
-    value = $.trim(value + ' ' + e.value);
-  } else {
-    value = $.trim(value.replace(e.value, '').replace('  ', ' '));
-  }
-  $('#checkvalue3').val(value);
+var welChild = $('.checkbox-child').checkbox();
+var welParent = $('#checkbox-parent').checkbox();
+
+// check event by parent checkbox
+welParent.checkbox().on('check', function(e){
+// remove ambiguous;
+welParent.chbxChecked(e.checked);
+welChild.each(function(i, element) {
+  $(element).chbxChecked(e.checked);
+});
+});
+
+// check event by children checkbox
+welChild.on('check', function(e) {
+var bAnd = true, bOr = false;
+welChild.each(function(i, element){
+  var bChecked = $(element).chbxChecked();
+  bAnd = bAnd && bChecked, bOr = bOr || bChecked;
+});
+
+var bChecked = bAnd === true || (bAnd === false && bOr === false ? false : null);
+welParent.chbxChecked(bChecked);
 });
 ```
 ***
 
-#### Change checkbox value
+#### Label option
 ```html
-<input id="checkbox4" type="checkbox" value="Bootstrap is" checked/> bootstrap<br/>
-before : <span id="checkvalue4-1"></span><br/>
-after : <span id="checkvalue4-2"></span>
+<input id="checkbox4" type="checkbox" value="1">&nbsp;<span id="label">label</span>
 ```
 ```javascript
-var welCheckbox4 = $('#checkbox4').checkbox();
-$('#checkvalue4-1').html(welCheckbox4.chbxVal());
-welCheckbox4.chbxVal('dependent on jQuery')
-$('#checkvalue4-2').html(welCheckbox4.chbxVal());
+$('#checkbox4').checkbox({label:'#label'});
 ```
 ***
 
-#### Change checkbox check state
+#### Change value
 ```html
-<input id="checkbox5-1" type="checkbox" value="checked"/> : <span id="checkvalue5-1"></span><br/>
-<input id="checkbox5-2" type="checkbox" value="unchecked"/> : <span id="checkvalue5-2"></span><br/>
-<input id="checkbox5-3" type="checkbox" value="ambiguous"/> : <span id="checkvalue5-3"></span>
+<input id="checkbox5" type="checkbox" value="1">
+value: <span id="value"></span><br/>
+<a id="change-value" class="btn btn-mini"><i>Change Value</i></a>
 ```
 ```javascript
-var welCheckbox51 = $('#checkbox5-1').checkbox();
-welCheckbox51.chbxChecked(true);
-if (welCheckbox51.chbxChecked() === true) {
-  $('#checkvalue5-1').html(welCheckbox51.chbxVal());
-}
+var welCheckbox5 = $('#checkbox5').checkbox();
+$('#value').html(welCheckbox5.chbxVal());
 
-var welCheckbox52 = $('#checkbox5-2').checkbox();
-welCheckbox52.chbxChecked(false);
-if (welCheckbox52.chbxChecked() === false) {
-  $('#checkvalue5-2').html(welCheckbox52.chbxVal());
-}
+$('#change-value').on('click', function(){
+  var value = parseInt(welCheckbox5.chbxVal()) + 1;
+  welCheckbox5.chbxVal(value);
+  $('#value').html(welCheckbox5.chbxVal());
+});
+```
+***
 
-var welCheckbox53 = $('#checkbox5-3').checkbox();
-welCheckbox53.chbxChecked(null);
-if (welCheckbox53.chbxChecked() === null) {
-  $('#checkvalue5-3').html(welCheckbox53.chbxVal());
-}
+#### Change check state
+```html
+<input id="checkbox6" type="checkbox" value="1">
+checked: <span id="checked"></span><br/>
+<a id="change-checked" class="btn btn-mini"><i>Change Checked</i></a>
+```
+```javascript
+var welCheckbox6 = $('#checkbox6').checkbox();
+$('#checked').html(welCheckbox6.chbxChecked()+"");
+
+$('#change-checked').on('click', function(){
+  var checked = !welCheckbox6.chbxChecked();
+  welCheckbox6.chbxChecked(checked);
+  $('#checked').html(welCheckbox6.chbxChecked()+"");
+});
 ```
 

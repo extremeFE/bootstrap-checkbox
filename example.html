@@ -30,38 +30,33 @@
 <h4>
   check event
 </h4>
-<input id="checkbox3-0" type="checkbox" value="state">
-<input id="checkvalue3" type="text" /><br/>
-<input id="checkbox3-1" class="checkbox3" type="checkbox" value="Apple"> Apple<br/>
-<input id="checkbox3-2" class="checkbox3" type="checkbox" value="Orange"> Orange<br/>
-<input id="checkbox3-3" class="checkbox3" type="checkbox" value="Google"> Google
+<input id="checkbox-parent" type="checkbox" value="state"> parent<br/>
+&nbsp; <input class="checkbox-child" type="checkbox" value="child1"> child1<br/>
+&nbsp; <input class="checkbox-child" type="checkbox" value="child2"> child2<br/>
+&nbsp; <input class="checkbox-child" type="checkbox" value="child3"> child3
 <script>
-  $('#checkbox3-0').checkbox();
-  $('.checkbox3').checkbox().on('check', function(e) {
-    var value = $('#checkvalue3').val();
-    if (e.checked) {
-      value = $.trim(value + ' ' + e.value);
-    } else {
-      value = $.trim(value.replace(e.value, '').replace('  ', ' '));
-    }
-    $('#checkvalue3').val(value);
+  var welChild = $('.checkbox-child').checkbox();
+  var welParent = $('#checkbox-parent').checkbox();
 
-    var and = true, or = false;
-    $('.checkbox3').each(function(i, element){
-      var checked = $(element).chbxChecked();
-      and = and&&checked;
-      or = or||checked;
+  // check event by parent checkbox
+  welParent.checkbox().on('check', function(e){
+    // remove ambiguous;
+    welParent.chbxChecked(e.checked);
+    welChild.each(function(i, element) {
+      $(element).chbxChecked(e.checked);
+    });
+  });
+
+  // check event by children checkbox
+  welChild.on('check', function(e) {
+    var bAnd = true, bOr = false;
+    welChild.each(function(i, element){
+      var bChecked = $(element).chbxChecked();
+      bAnd = bAnd && bChecked, bOr = bOr || bChecked;
     });
 
-    var checked;
-    if (and === true) {
-      checked = true;
-    } else if (and === false && or === false) {
-      checked = false;
-    } else {
-      checked = null;
-    }
-    $('#checkbox3-0').chbxChecked(checked);
+    var bChecked = bAnd === true || (bAnd === false && bOr === false ? false : null);
+    welParent.chbxChecked(bChecked);
   });
 </script>
 <h4>
@@ -72,31 +67,35 @@
   $('#checkbox4').checkbox({label:'#label'});
 </script>
 <h4>
-  Change value and checked.
+  Change value
 </h4>
 <input id="checkbox5" type="checkbox" value="1">
-value:<span id="value"></span>
-, checked:<span id="checked"></span><br/>
+value: <span id="value"></span><br/>
 <a id="change-value" class="btn btn-mini"><i>Change Value</i></a>
-<a id="change-checked" class="btn btn-mini"><i>Change Checked</i></a>
 <script>
   var welCheckbox5 = $('#checkbox5').checkbox();
-  var showCheckboxState = function(){
-    $('#value').html(welCheckbox5.chbxVal());
-    $('#checked').html(welCheckbox5.chbxChecked()+"");
-  };
-  showCheckboxState();
+  $('#value').html(welCheckbox5.chbxVal());
 
   $('#change-value').on('click', function(){
     var value = parseInt(welCheckbox5.chbxVal()) + 1;
     welCheckbox5.chbxVal(value);
-    showCheckboxState();
+    $('#value').html(welCheckbox5.chbxVal());
   });
+</script>
+<h4>
+  Change check state
+</h4>
+<input id="checkbox6" type="checkbox" value="1">
+checked: <span id="checked"></span><br/>
+<a id="change-checked" class="btn btn-mini"><i>Change Checked</i></a>
+<script>
+  var welCheckbox6 = $('#checkbox6').checkbox();
+  $('#checked').html(welCheckbox6.chbxChecked()+"");
 
   $('#change-checked').on('click', function(){
-    var checked = !welCheckbox5.chbxChecked();
-    welCheckbox5.chbxChecked(checked);
-    showCheckboxState();
+    var checked = !welCheckbox6.chbxChecked();
+    welCheckbox6.chbxChecked(checked);
+    $('#checked').html(welCheckbox6.chbxChecked()+"");
   });
 </script>
 </body>
